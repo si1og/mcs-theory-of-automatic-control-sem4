@@ -1,6 +1,6 @@
 \subsection{Передаточная функция обратной связи}
 
-В зависимости от структурной схемы цепи обратной связи формируется уравнение сигнала управления. Исходная схема представлена на рисунке~\ref{fig:feedback_scheme}.
+В зависимости от структурной схемы цепи обратной связи формируются уравнения сигнала управления. Исходная схема представлена на рисунке~\ref{fig:feedback_scheme}.
 
 \begin{figure}[H]
     \centering
@@ -9,100 +9,102 @@
     \label{fig:feedback_scheme}
 \end{figure}
 
-По схеме видно, что на регулятор поступают сигналы рассогласования
+Сигнал обратной связи по координате ротора двигателя определяется выражением
 \begin{equation}
-    k\psi_{\text{р}} = q_{\text{р}} - q^*
+    q_{\text{р}}
     =
-    k\left(
-        \varphi_{\text{рпр}} - \varphi^*
-    \right),
+    \frac{k}{i}\varphi_{\text{р}}
+    =
+    k\varphi_{\text{рпр}},
+\end{equation}
+где
+\begin{equation}
+    \varphi_{\text{рпр}}
+    =
+    \frac{\varphi_{\text{р}}}{i}
+\end{equation}
+--- приведенный угол поворота ротора двигателя.
+
+Сигнал обратной связи по координате выходного звена:
+\begin{equation}
+    q_{\text{м}}
+    =
+    k\varphi_{\text{м}}.
+\end{equation}
+
+Тогда сигналы рассогласования имеют вид
+\begin{equation}
+    \psi_{\text{р}}
+    =
+    \varphi_{\text{рпр}}-\varphi^*,
 \end{equation}
 
 \begin{equation}
-    k\psi_{\text{м}} = q_{\text{м}} - q^*
+    \psi_{\text{м}}
     =
-    k\left(
-        \varphi_{\text{м}} - \varphi^*
-    \right).
+    \varphi_{\text{м}}-\varphi^*.
 \end{equation}
 
-В соответствии с вариантом используются пропорциональное звено по сигналу $\psi_{\text{р}}$ и интегральное звено по сигналу $\psi_{\text{м}}$:
+В соответствии с вариантом используется ПИ-регулятор, содержащий пропорциональное звено по сигналу $\psi_{\text{р}}$ и интегральное звено по сигналу $\psi_{\text{м}}$:
 \begin{equation}
-    W_{\text{р}}(p) = k_{\text{п}},
+    W_{\text{р}}(p)=k_{\text{п}},
     \qquad
-    W_{\text{м}}(p) = \frac{k_{\text{и}}}{p}.
+    W_{\text{м}}(p)=\frac{k_{\text{и}}}{p}.
 \end{equation}
 
-Так как обратная связь является отрицательной, сигнал управления имеет вид
+По структурной схеме системы сигнал управления определяется выражением
 \begin{equation}
     u
     =
-    -k_{\text{п}} k
+    -
+    k_{\text{п}}k
     \left(
-        \varphi_{\text{рпр}} - \varphi^*
+        \varphi_{\text{рпр}}-\varphi^*
     \right)
     -
-    \frac{k_{\text{и}}}{p} k
+    \frac{k_{\text{и}}}{p}
+    k
     \left(
-        \varphi_{\text{м}} - \varphi^*
+        \varphi_{\text{м}}-\varphi^*
     \right).
 \end{equation}
 
-Или, в операторной форме:
+Умножим обе части уравнения на оператор $p$:
 \begin{equation}
-    U
+    pu
     =
-    -k_{\text{п}} k
-    \left(
-        \Phi_{\text{рпр}} - \Phi^*
-    \right)
     -
-    \frac{k_{\text{и}}}{p} k
+    k_{\text{п}}kp
     \left(
-        \Phi_{\text{м}} - \Phi^*
-    \right).
-\end{equation}
-
-Умножим обе части уравнения на $p$:
-\begin{equation}
-    pU
-    =
-    -k_{\text{п}}kp
-    \left(
-        \Phi_{\text{рпр}} - \Phi^*
+        \varphi_{\text{рпр}}-\varphi^*
     \right)
     -
     k_{\text{и}}k
     \left(
-        \Phi_{\text{м}} - \Phi^*
+        \varphi_{\text{м}}-\varphi^*
     \right).
 \end{equation}
 
-Раскроем скобки:
+Раскрывая скобки, получим
 \begin{equation}
-    pU
+    pu
     =
-    -k_{\text{п}}kp\Phi_{\text{рпр}}
     -
-    k_{\text{и}}k\Phi_{\text{м}}
+    k_{\text{п}}kp\varphi_{\text{рпр}}
     +
-    k_{\text{п}}kp\Phi^*
-    +
-    k_{\text{и}}k\Phi^*.
-\end{equation}
-
-Так как в дальнейшем рассматривается постоянное задающее воздействие $\varphi^* = \operatorname{const}$, то $\dot{\varphi}^* = 0$. Тогда после перехода от оператора $p$ к производной по времени получим:
-\begin{equation}
-    \dot{u}
-    =
-    -k_{\text{п}}k\dot{\varphi}_{\text{рпр}}
+    k_{\text{п}}kp\varphi^*
     -
     k_{\text{и}}k\varphi_{\text{м}}
     +
     k_{\text{и}}k\varphi^*.
 \end{equation}
 
-Итоговое уравнение системы управления запишем в виде
+Перейдем к обозначению производных по времени и учтем, что
+\[
+    \varphi^* = \text{const}.
+\]
+
+Тогда уравнение управления принимает вид
 \begin{empheq}[box=\fbox]{equation}
     \dot{u}
     +
