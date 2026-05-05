@@ -1,0 +1,150 @@
+\subsection{Операторная форма системы уравнений движения}
+
+Допишем систему уравнений механической части динамической характеристикой двигателя и уравнением системы управления.
+
+Тогда полная система дифференциальных уравнений принимает вид
+\begin{equation}
+\begin{cases}
+    J_{\text{дпр}}
+    \ddot{\varphi}_{\text{рпр}}
+    +
+    b
+    \dot{\varphi}_{\text{рпр}}
+    -
+    b
+    \dot{\varphi}_{\text{м}}
+    +
+    c
+    \varphi_{\text{рпр}}
+    -
+    c
+    \varphi_{\text{м}}
+    -
+    M_{\text{дпр}}
+    =
+    0,
+    \\[0.4em]
+
+    J_{\text{м}}
+    \ddot{\varphi}_{\text{м}}
+    -
+    b
+    \dot{\varphi}_{\text{рпр}}
+    +
+    b
+    \dot{\varphi}_{\text{м}}
+    -
+    c
+    \varphi_{\text{рпр}}
+    +
+    c
+    \varphi_{\text{м}}
+    =
+    0,
+    \\[0.4em]
+
+    \tau
+    \dot{M}_{\text{дпр}}
+    +
+    M_{\text{дпр}}
+    +
+    s_{\text{пр}}
+    \dot{\varphi}_{\text{рпр}}
+    -
+    r_{\text{пр}}u
+    =
+    0,
+    \\[0.4em]
+
+    \dot{u}
+    +
+    k k_{\text{п}}
+    \dot{\varphi}_{\text{рпр}}
+    +
+    k k_{\text{и}}
+    \varphi_{\text{м}}
+    -
+    k k_{\text{и}}
+    \varphi^*
+    =
+    0.
+\end{cases}
+\end{equation}
+
+Перейдем к операторной форме, заменяя производные оператором $p$:
+\[
+    \dot{x}
+    \rightarrow
+    p x,
+    \qquad
+    \ddot{x}
+    \rightarrow
+    p^2 x.
+\]
+
+Тогда система уравнений принимает вид
+\begin{equation}
+\begin{cases}
+    \left(
+        J_{\text{дпр}}p^2
+        +
+        bp
+        +
+        c
+    \right)
+    \varphi_{\text{рпр}}
+    -
+    \left(
+        bp+c
+    \right)
+    \varphi_{\text{м}}
+    -
+    M_{\text{дпр}}
+    =
+    0,
+    \\[0.4em]
+
+    \left(
+        J_{\text{м}}p^2
+        +
+        bp
+        +
+        c
+    \right)
+    \varphi_{\text{м}}
+    -
+    \left(
+        bp+c
+    \right)
+    \varphi_{\text{рпр}}
+    =
+    0,
+    \\[0.4em]
+
+    \left(
+        \tau p+1
+    \right)
+    M_{\text{дпр}}
+    +
+    s_{\text{пр}}p
+    \varphi_{\text{рпр}}
+    -
+    r_{\text{пр}}u
+    =
+    0,
+    \\[0.4em]
+
+    pu
+    +
+    k k_{\text{п}}p
+    \varphi_{\text{рпр}}
+    +
+    k k_{\text{и}}
+    \varphi_{\text{м}}
+    -
+    k k_{\text{и}}
+    \varphi^*
+    =
+    0.
+\end{cases}
+\end{equation}
