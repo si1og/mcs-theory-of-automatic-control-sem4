@@ -4,51 +4,76 @@
     >=Stealth,
     line/.style={draw, thick},
     arrow/.style={draw, -Stealth, thick},
-    mass/.style={draw, rectangle, minimum width=0.75cm, minimum height=1.15cm},
-    spring/.style={thick, decorate, decoration={zigzag, segment length=5pt, amplitude=3pt}},
-    damper/.style={thick}
+    spring/.style={
+        draw,
+        thick,
+        decorate,
+        decoration={zigzag, segment length=7pt, amplitude=3pt}
+    }
 ]
 
-    % Массы
-    \node[mass] (jdpr) at (0,0) {$J_{\text{дпр}}$};
-    \node[mass] (jm) at (6.5,0) {$J_{\text{м}}$};
+    % Инерционные звенья
+    \draw[line] (0,-1.05) -- (0,1.05);
+    \draw[line] (-0.28,1.05) -- (0.28,1.05);
+    \draw[line] (-0.28,-1.05) -- (0.28,-1.05);
+    \node at (0,-1.5) {$J_{\text{дпр}}$};
+
+    \draw[line] (7.8,-1.05) -- (7.8,1.05);
+    \draw[line] (7.52,1.05) -- (8.08,1.05);
+    \draw[line] (7.52,-1.05) -- (8.08,-1.05);
+    \node at (7.8,-1.5) {$J_{\text{м}}$};
 
     % Валы
-    \draw[line] (-1.0,0) -- (jdpr.west);
-    \draw[line] (jdpr.east) -- (2.0,0);
-    \draw[line] (4.5,0) -- (jm.west);
-    \draw[line] (jm.east) -- (7.4,0);
+    \draw[line] (0,0) -- (2.7,0);
+    \draw[line] (5.1,0) -- (7.8,0);
 
-    % Упругий и демпфирующий элементы
-    \draw[line] (2.0,0.35) -- (2.45,0.35);
-    \draw[spring] (2.45,0.35) -- (4.05,0.35);
-    \draw[line] (4.05,0.35) -- (4.5,0.35);
-    \node at (3.25,0.85) {$c$};
+    % Упруго-диссипативное звено
+    \draw[line] (2.7,-1) -- ++(0,2.01);
+    \draw[line] (5.1,-1) -- ++(0,2.01);
 
-    \draw[line] (2.0,-0.35) -- (2.75,-0.35);
-    \draw[damper] (2.75,-0.65) -- (2.75,-0.05);
-    \draw[damper] (2.75,-0.65) -- (3.45,-0.65);
-    \draw[damper] (2.75,-0.05) -- (3.45,-0.05);
-    \draw[damper] (3.45,-0.50) -- (3.45,-0.20);
-    \draw[line] (3.45,-0.35) -- (4.5,-0.35);
-    \node at (3.25,-0.95) {$b$};
+    % Пружина
+    \draw[line] (2.7,1) -- (3.05,1);
+    \draw[spring] (3.05,1) -- (4.75,1);
+    \draw[line] (4.75,1) -- (5.1,1);
+    \node at (3.9,1.5) {$c$};
 
-    % Момент двигателя
-    \draw[arrow] (-1.05,-0.65) arc[start angle=-90,end angle=90,radius=0.65cm];
-    \node at (-1.45,0.85) {$M_{\text{дпр}}$};
+    % Демпфер
+    \draw[line] (2.7,-1) -- (3.8,-1);
+    \draw[line] (3.8,-1-.27) -- (3.8,-1+.27);
+    \draw[line] (3.55,-1-.27) -- (4.05,-1-.27);
+    \draw[line] (3.55,-1+.27) -- (4.05,-1+.27);
+    \draw[line] (4.05,-1-.27) -- (4.05,-1+.27);
+    \draw[line] (4.05,-1) -- (5.1,-1);
+    \node at (3.9,-1.7) {$b$};
 
-    % Углы
-    \draw[arrow] (0.9,0.55) arc[start angle=30,end angle=150,radius=0.5cm];
-    \node at (1.0,0.9) {$\varphi_{\text{рпр}}$};
+    % Движущий момент
+    \draw[arrow]
+        (-1.05,-0.75)
+        arc[start angle=-90,end angle=95,radius=0.75cm];
+    \node at (-1.8,0.88) {$M_{\text{дпр}}$};
 
-    \draw[arrow] (5.8,0.55) arc[start angle=150,end angle=30,radius=0.5cm];
-    \node at (5.9,0.9) {$\varphi_{\text{м}}$};
+    % Угол phi_rpr
+    \draw[arrow]
+        (1.0,-0.36)
+        arc[start angle=-70,end angle=100,radius=0.36cm];
+    \node at (1.05,.8) {$\varphi_{\text{рпр}}$};
 
-    % Моменты в редукторе
-    \draw[arrow] (1.55,-0.55) arc[start angle=-30,end angle=-150,radius=0.45cm];
-    \node at (1.7,-0.95) {$M_{\text{м}}$};
+    % Момент M_m слева
+    \draw[arrow]
+        (1.65,-0.36)
+        arc[start angle=-70,end angle=100,radius=0.36cm];
+    \node at (1.78,-0.82) {$M_{\text{м}}$};
 
-    \draw[arrow] (5.05,-0.55) arc[start angle=-150,end angle=-30,radius=0.45cm];
-    \node at (5.0,-0.95) {$M_{\text{м}}$};
+    % Момент M_m справа
+    \draw[arrow]
+        (5.95,0.36)
+        arc[start angle=70,end angle=-100,radius=0.36cm];
+    \node at (5.95,-0.82) {$M_{\text{м}}$};
+
+    % Угол phi_m
+    \draw[arrow]
+        (6.75,-0.36)
+        arc[start angle=-70,end angle=100,radius=0.36cm];
+    \node at (6.82,0.8) {$\varphi_{\text{м}}$};
 
 \end{tikzpicture}
