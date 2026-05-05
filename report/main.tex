@@ -8,9 +8,25 @@
 \tableofcontents
 \newpage
 
+\renewcommand{\thefigure}{А.\arabic{figure}}
+\renewcommand{\thetable}{А.\arabic{table}}
+\renewcommand{\theequation}{А.\arabic{equation}}
+
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{equation}{0}
+
 \include{tex/pages/техническое_задание}
 \include{tex/pages/введение}
 
+
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{equation}{0}
 \include{tex/sections/мат_модель_сау/мат_модель_сау}
 
 % \include{tex/sections/проектирование/проектороание}
