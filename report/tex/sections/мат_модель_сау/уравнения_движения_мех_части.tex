@@ -1,0 +1,138 @@
+\subsection{Уравнения движения механической части}
+
+Механическая часть модуля поворота состоит из ротора электродвигателя, редуктора и выходного звена. Кинематическая схема модуля поворота представлена на рисунке~\ref{fig:kinematic_scheme}.
+
+\begin{figure}[H]
+    \centering
+    \input{tex/graphics/figures/kinematic_scheme}
+    \caption{Кинематическая схема модуля поворота}
+    \label{fig:kinematic_scheme}
+\end{figure}
+
+Для жесткой системы углы поворота ротора двигателя и выходного звена связаны соотношением
+\[
+    \varphi_{\text{р}} = i \varphi_{\text{м}},
+\]
+где $i$~--- передаточное отношение редуктора.
+
+Введем приведенную координату ротора двигателя
+\[
+    \varphi_{\text{рпр}} = \frac{\varphi_{\text{р}}}{i}.
+\]
+Тогда для жесткой системы
+\[
+    \varphi_{\text{рпр}} = \varphi_{\text{м}}.
+\]
+
+Запишем кинетическую энергию системы:
+\[
+    T =
+    \frac{1}{2} J_{\text{д}} \dot{\varphi}_{\text{р}}^2
+    +
+    \frac{1}{2} J_{\text{м}} \dot{\varphi}_{\text{м}}^2.
+\]
+
+Так как
+\[
+    \dot{\varphi}_{\text{р}} = i \dot{\varphi}_{\text{м}},
+\]
+то
+\[
+    T =
+    \frac{1}{2} J_{\text{д}} i^2 \dot{\varphi}_{\text{м}}^2
+    +
+    \frac{1}{2} J_{\text{м}} \dot{\varphi}_{\text{м}}^2
+    =
+    \frac{1}{2}
+    \left(
+        J_{\text{дпр}} + J_{\text{м}}
+    \right)
+    \dot{\varphi}_{\text{м}}^2,
+\]
+где
+\[
+    J_{\text{дпр}} = J_{\text{д}} i^2
+\]
+--- момент инерции ротора двигателя, приведенный к координате $\varphi_{\text{м}}$.
+
+Движущий момент электродвигателя является внешним моментом, приложенным к ротору двигателя. Элементарная работа внешних сил на возможном перемещении:
+\[
+    \delta A =
+    M_{\text{д}} \delta \varphi_{\text{р}}
+    =
+    M_{\text{д}} i \delta \varphi_{\text{м}}
+    =
+    M_{\text{дпр}} \delta \varphi_{\text{м}},
+\]
+где
+\[
+    M_{\text{дпр}} = M_{\text{д}} i
+\]
+--- движущий момент двигателя, приведенный к координате $\varphi_{\text{м}}$.
+
+Учтем упругость редуктора. Динамическая модель механической части представлена на рисунке~\ref{fig:dynamic_model}.
+
+\begin{figure}[H]
+    \centering
+    \input{tex/graphics/figures/dynamic_model}
+    \caption{Динамическая модель механической части}
+    \label{fig:dynamic_model}
+\end{figure}
+
+Момент на выходном валу редуктора связан с деформацией $\varphi_{\text{рпр}} - \varphi_{\text{м}}$ линейным упруго-диссипативным соотношением:
+\[
+    M_{\text{м}}
+    =
+    c \left(
+        \varphi_{\text{рпр}} - \varphi_{\text{м}}
+    \right)
+    +
+    b \left(
+        \dot{\varphi}_{\text{рпр}} - \dot{\varphi}_{\text{м}}
+    \right),
+\]
+где $c$~--- коэффициент жесткости редуктора, приведенный к выходному валу; $b$~--- коэффициент демпфирования.
+
+Составим систему уравнений движения механической части:
+\[
+    \begin{cases}
+        J_{\text{дпр}} \ddot{\varphi}_{\text{рпр}}
+        =
+        M_{\text{дпр}} - M_{\text{м}},
+        \\
+        J_{\text{м}} \ddot{\varphi}_{\text{м}}
+        =
+        M_{\text{м}}.
+    \end{cases}
+\]
+
+Подставляя выражение для $M_{\text{м}}$, получим:
+\[
+    \begin{cases}
+        J_{\text{дпр}} \ddot{\varphi}_{\text{рпр}}
+        +
+        b \dot{\varphi}_{\text{рпр}}
+        -
+        b \dot{\varphi}_{\text{м}}
+        +
+        c \varphi_{\text{рпр}}
+        -
+        c \varphi_{\text{м}}
+        -
+        M_{\text{дпр}}
+        =
+        0,
+        \\
+        J_{\text{м}} \ddot{\varphi}_{\text{м}}
+        -
+        b \dot{\varphi}_{\text{рпр}}
+        +
+        b \dot{\varphi}_{\text{м}}
+        -
+        c \varphi_{\text{рпр}}
+        +
+        c \varphi_{\text{м}}
+        =
+        0.
+    \end{cases}
+\]

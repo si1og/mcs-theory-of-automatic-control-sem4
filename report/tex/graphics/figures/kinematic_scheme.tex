@@ -1,0 +1,92 @@
+\begin{tikzpicture}[
+    scale=1.0,
+    transform shape,
+    >=Stealth,
+    line/.style={draw, thick},
+    arrow/.style={draw, -Stealth, thick},
+    inertia/.style={
+        draw,
+        rectangle,
+        minimum width=0.95cm,
+        minimum height=0.55cm,
+        align=center
+    }
+]
+
+    % Макрос опоры: \support{x}{y}
+    \newcommand{\support}[2]{
+        % вертикальные стойки
+        \draw[line] (#1-0.45,#2-0.28) -- (#1-0.45,#2+0.28);
+        \draw[line] (#1+0.45,#2-0.28) -- (#1+0.45,#2+0.28);
+
+
+        % верхняя штриховка
+        \foreach \dx in {-0.06,0.14,0.34,0.54} {
+            \draw[line]
+                (#1+\dx-0.38,#2+0.55)
+                -- ++(0.18,-0.18);
+        }
+
+        % верхняя направляющая
+        \draw[line] (#1-0.28,#2+0.37) -- (#1+0.34,#2+0.37);
+
+        % нижняя направляющая
+        \draw[line] (#1-0.28,#2-0.37) -- (#1+0.34,#2-0.37);
+
+        % нижняя штриховка
+        \foreach \dx in {-0.06,0.14,0.34,0.54} {
+            \draw[line]
+                (#1+\dx-0.38,#2-0.55)
+                -- ++(0.18,0.18);
+        }
+    }
+
+    % Инерции
+    \node[inertia] (jd) at (0,0) {$J_{\text{д}}$};
+    \node[inertia] (jm) at (9.4,0) {$J_{\text{м}}$};
+
+    % Левая часть
+    \draw[line] (jd.east) -- (3.7,0);
+    \support{2.6}{0}
+
+    % Редуктор
+    \draw[line] (3.7,-3) -- (3.7,0.65);
+    \draw[line] (5.5,-3) -- (5.5,0.65);
+
+    \draw[line] (3.7-0.3,0.65) -- (3.7+0.3,0.65);
+    \draw[line] (3.7-0.3,-0.65) -- (3.7+0.3,-0.65);
+    \draw[line] (5.5-0.3,0.65) -- (5.5+0.3,0.65);
+    \draw[line] (5.5-0.3,-0.65) -- (5.5+0.3,-0.65);
+
+    \draw[line] (3.7,-2) -- (5.5,-2);
+
+    \support{4.6}{-2}
+
+    \node at (4.6,0.18) {$i$};
+
+    % Правая часть
+    \draw[line] (5.5,0) -- (jm.west);
+    \support{6.5}{0}
+
+    % Момент двигателя
+    \draw[arrow]
+        (-1.55,-0.65)
+        arc[start angle=-90,end angle=90,radius=0.65cm];
+
+    \node at (-1.85,0.75) {$M_{\text{д}}$};
+
+    % Угол ротора
+    \draw[arrow]
+        (1.05,-0.42)
+        arc[start angle=-75,end angle=105,radius=0.42cm];
+
+    \node at (1.1,0.68) {$\varphi_{\text{р}}$};
+
+    % Угол выходного звена
+    \draw[arrow]
+        (8.2,-0.42)
+        arc[start angle=-75,end angle=105,radius=0.42cm];
+
+    \node at (8.25,0.68) {$\varphi_{\text{м}}$};
+
+\end{tikzpicture}
