@@ -1,0 +1,114 @@
+\subsection{Передаточная функция обратной связи}
+
+В зависимости от структурной схемы цепи обратной связи формируется уравнение сигнала управления. Исходная схема представлена на рисунке~\ref{fig:feedback_scheme}.
+
+\begin{figure}[H]
+    \centering
+    \input{tex/graphics/figures/control_scheme}
+    \caption{Схема обратной связи}
+    \label{fig:feedback_scheme}
+\end{figure}
+
+По схеме видно, что на регулятор поступают сигналы рассогласования
+\begin{equation}
+    k\psi_{\text{р}} = q_{\text{р}} - q^*
+    =
+    k\left(
+        \varphi_{\text{рпр}} - \varphi^*
+    \right),
+\end{equation}
+
+\begin{equation}
+    k\psi_{\text{м}} = q_{\text{м}} - q^*
+    =
+    k\left(
+        \varphi_{\text{м}} - \varphi^*
+    \right).
+\end{equation}
+
+В соответствии с вариантом используются пропорциональное звено по сигналу $\psi_{\text{р}}$ и интегральное звено по сигналу $\psi_{\text{м}}$:
+\begin{equation}
+    W_{\text{р}}(p) = k_{\text{п}},
+    \qquad
+    W_{\text{м}}(p) = \frac{k_{\text{и}}}{p}.
+\end{equation}
+
+Так как обратная связь является отрицательной, сигнал управления имеет вид
+\begin{equation}
+    u
+    =
+    -k_{\text{п}} k
+    \left(
+        \varphi_{\text{рпр}} - \varphi^*
+    \right)
+    -
+    \frac{k_{\text{и}}}{p} k
+    \left(
+        \varphi_{\text{м}} - \varphi^*
+    \right).
+\end{equation}
+
+Или, в операторной форме:
+\begin{equation}
+    U
+    =
+    -k_{\text{п}} k
+    \left(
+        \Phi_{\text{рпр}} - \Phi^*
+    \right)
+    -
+    \frac{k_{\text{и}}}{p} k
+    \left(
+        \Phi_{\text{м}} - \Phi^*
+    \right).
+\end{equation}
+
+Умножим обе части уравнения на $p$:
+\begin{equation}
+    pU
+    =
+    -k_{\text{п}}kp
+    \left(
+        \Phi_{\text{рпр}} - \Phi^*
+    \right)
+    -
+    k_{\text{и}}k
+    \left(
+        \Phi_{\text{м}} - \Phi^*
+    \right).
+\end{equation}
+
+Раскроем скобки:
+\begin{equation}
+    pU
+    =
+    -k_{\text{п}}kp\Phi_{\text{рпр}}
+    -
+    k_{\text{и}}k\Phi_{\text{м}}
+    +
+    k_{\text{п}}kp\Phi^*
+    +
+    k_{\text{и}}k\Phi^*.
+\end{equation}
+
+Так как в дальнейшем рассматривается постоянное задающее воздействие $\varphi^* = \operatorname{const}$, то $\dot{\varphi}^* = 0$. Тогда после перехода от оператора $p$ к производной по времени получим:
+\begin{equation}
+    \dot{u}
+    =
+    -k_{\text{п}}k\dot{\varphi}_{\text{рпр}}
+    -
+    k_{\text{и}}k\varphi_{\text{м}}
+    +
+    k_{\text{и}}k\varphi^*.
+\end{equation}
+
+Итоговое уравнение системы управления запишем в виде
+\begin{empheq}[box=\fbox]{equation}
+    \dot{u}
+    +
+    k_{\text{п}}k\dot{\varphi}_{\text{рпр}}
+    +
+    k_{\text{и}}k\varphi_{\text{м}}
+    =
+    k_{\text{и}}k\varphi^*.
+\end{empheq}
