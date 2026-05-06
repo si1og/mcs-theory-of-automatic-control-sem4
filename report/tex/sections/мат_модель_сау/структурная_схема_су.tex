@@ -1,0 +1,63 @@
+\subsection{Структурная схема системы управления}
+
+Для формирования структурной схемы системы управления выразим неизвестные величины из системы уравнений в операторной форме.
+
+Из первого уравнения получим:
+\begin{equation}
+    \Phi_{\text{рпр}}
+    =
+    \frac{
+        M_{\text{дпр}}
+        +
+        (bp+c)\Phi_{\text{м}}
+    }{
+        J_{\text{дпр}}p^2+bp+c
+    }.
+\end{equation}
+
+Из второго уравнения:
+\begin{equation}
+    \Phi_{\text{м}}
+    =
+    \frac{
+        bp+c
+    }{
+        J_{\text{м}}p^2+bp+c
+    }
+    \Phi_{\text{рпр}}.
+\end{equation}
+
+Из динамической характеристики двигателя:
+\begin{equation}
+    M_{\text{дпр}}
+    =
+    \frac{
+        r_{\text{пр}}U
+        -
+        s_{\text{пр}}p\Phi_{\text{рпр}}
+    }{
+        \tau p+1
+    }.
+\end{equation}
+
+Из уравнения системы управления:
+\begin{equation}
+    U
+    =
+    -kk_{\text{п}}\Phi_{\text{рпр}}
+    -
+    \frac{kk_{\text{и}}}{p}\Phi_{\text{м}}
+    +
+    \frac{kk_{\text{и}}}{p}\Phi^*.
+\end{equation}
+
+Полученные выражения позволяют построить структурную схему системы управления, представленную на рисунке~\ref{fig:structural_scheme}.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{\textwidth}{!}{
+        \input{tex/graphics/figures/structural_scheme}
+    }
+    \caption{Структурная схема системы управления}
+    \label{fig:structural_scheme}
+\end{figure}

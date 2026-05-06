@@ -1,0 +1,196 @@
+\subsection{Характеристическое уравнение}
+
+Характеристическое уравнение системы управления в общем виде определяется выражением
+\begin{equation}
+    \det A(p) = 0,
+\end{equation}
+где $A(p)$ --- матрица коэффициентов системы уравнений движения модуля поворота.
+
+Корни характеристического уравнения определяют вид решения системы и, в частности, ее устойчивость. Для исследуемой системы матрица $A(p)$ была получена ранее:
+\begin{equation}
+    A=
+    \begin{bmatrix}
+        J_{\text{дпр}}p^2+bp+c
+        &
+        -(bp+c)
+        &
+        -1
+        &
+        0
+        \\
+
+        -(bp+c)
+        &
+        J_{\text{м}}p^2+bp+c
+        &
+        0
+        &
+        0
+        \\
+
+        s_{\text{пр}}p
+        &
+        0
+        &
+        \tau p+1
+        &
+        -r_{\text{пр}}
+        \\
+
+        kk_{\text{п}}p
+        &
+        kk_{\text{и}}
+        &
+        0
+        &
+        p
+    \end{bmatrix}.
+\end{equation}
+
+Исходные данные для расчета:
+\[
+    J_{\text{д}} = 2 \cdot 10^{-3}, \quad
+    J_{\text{м}} = 1, \quad
+    b = 4, \quad
+    c = 10^3,
+\]
+\[
+    i = 50, \quad
+    \tau = 3 \cdot 10^{-3}, \quad
+    s = 0.05, \quad
+    r = 0.7, \quad
+    k = 100.
+\]
+
+Приведенные коэффициенты:
+\begin{equation}
+    J_{\text{дпр}} = J_{\text{д}} i^2 = 5,
+\end{equation}
+
+\begin{equation}
+    s_{\text{пр}} = s i^2 = 125,
+\end{equation}
+
+\begin{equation}
+    r_{\text{пр}} = r i = 35.
+\end{equation}
+
+Подставляя численные значения параметров в матрицу $A(p)$, получим:
+\begin{equation}
+    A(p)=
+    \begin{bmatrix}
+        5p^2+4p+1000
+        &
+        -(4p+1000)
+        &
+        -1
+        &
+        0
+        \\
+
+        -(4p+1000)
+        &
+        p^2+4p+1000
+        &
+        0
+        &
+        0
+        \\
+
+        125p
+        &
+        0
+        &
+        0.003p+1
+        &
+        -35
+        \\
+
+        100k_{\text{п}}p
+        &
+        100k_{\text{и}}
+        &
+        0
+        &
+        p
+    \end{bmatrix}.
+\end{equation}
+
+Найдем определитель матрицы $A(p)$~--- результат вычислений в Wolfram Mathematica приведён на рисунке~\ref{fig:determinant_wolfram}:
+
+\screenshot[0.95]{determinant_wolfram}{
+Результат вычисления характеристического полинома в системе Wolfram Mathematica
+}
+
+\begin{equation}
+    \det A(p)
+    =
+    0.015p^6
+    +
+    5.072p^5
+    +
+    167p^4
+    +
+    (3500k_{\text{п}}+6500)p^3
+\end{equation}
+\[
+    \qquad
+    +
+    (14000k_{\text{п}}+125000)p^2
+    +
+    (14000k_{\text{и}}+3500000k_{\text{п}})p
+    +
+    3500000k_{\text{и}}.
+\]
+
+Таким образом, характеристическое уравнение системы имеет вид
+\begin{empheq}[box=\fbox]{equation}
+\begin{aligned}
+    0.015p^6
+    &+
+    5.072p^5
+    +
+    167p^4
+    +
+    (3500k_{\text{п}}+6500)p^3
+    \\
+    &+
+    (14000k_{\text{п}}+125000)p^2
+    \\
+    &+
+    (14000k_{\text{и}}+3500000k_{\text{п}})p
+    +
+    3500000k_{\text{и}}
+    =
+    0.
+\end{aligned}
+\end{empheq}
+
+Обозначим коэффициенты характеристического полинома:
+\begin{equation}
+    a_0 = 0.015,
+\end{equation}
+
+\begin{equation}
+    a_1 = 5.072,
+\end{equation}
+
+\begin{equation}
+    a_2 = 167,
+\end{equation}
+
+\begin{equation}
+    a_3 = 3500k_{\text{п}}+6500,
+\end{equation}
+
+\begin{equation}
+    a_4 = 14000k_{\text{п}}+125000,
+\end{equation}
+
+\begin{equation}
+    a_5 = 14000k_{\text{и}}+3500000k_{\text{п}},
+\end{equation}
+
+\begin{equation}
+    a_6 = 3500000k_{\text{и}}.
+\end{equation}

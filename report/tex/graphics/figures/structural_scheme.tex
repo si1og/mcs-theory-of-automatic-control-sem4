@@ -1,0 +1,140 @@
+\begin{tikzpicture}[
+    scale=0.72,
+    transform shape,
+    >=Stealth,
+    block/.style={
+        draw,
+        rectangle,
+        minimum width=3.0cm,
+        minimum height=1.0cm,
+        align=center
+    },
+    smallblock/.style={
+        draw,
+        rectangle,
+        minimum width=2.3cm,
+        minimum height=0.85cm,
+        align=center
+    },
+    sum/.style={
+        draw,
+        circle,
+        minimum size=0.65cm,
+        inner sep=0pt,
+        path picture={
+            \draw[thick]
+                (path picture bounding box.south west) --
+                (path picture bounding box.north east);
+            \draw[thick]
+                (path picture bounding box.north west) --
+                (path picture bounding box.south east);
+        }
+    },
+    line/.style={draw, -Stealth, thick, shorten >=1pt},
+    bus/.style={draw, thick}
+]
+
+    % =========================
+    % Механическая часть
+    % =========================
+
+    \node[sum] (sum_mech) at (0,0) {};
+    \node[block, right=1.4cm of sum_mech] (jd)
+        {$\dfrac{1}{J_{\text{дпр}}p^2+bp+c}$};
+
+    \node[block, right=2.0cm of jd] (jm)
+        {$\dfrac{bp+c}{J_{\text{м}}p^2+bp+c}$};
+
+    \node[left=1.0cm of sum_mech] (mdpr_in) {$M_{\text{дпр}}$};
+
+    \draw[line] (mdpr_in) -- (sum_mech.west);
+    \draw[line] (sum_mech.east) -- (jd.west);
+    \draw[line] (jd.east) -- node[above] {$\Phi_{\text{рпр}}$} (jm.west);
+    \draw[line] (jm.east) -- ++(1.3,0) coordinate (phi_m_out) node[right] {$\Phi_{\text{м}}$};
+
+    % Обратная связь по Phi_m в механическую часть через bp+c
+    \node[smallblock, above=1.55cm of sum_mech] (bpc)
+        {$bp+c$};
+
+    \draw[bus] (phi_m_out) |- ++(0,1.55) -| (bpc.east);
+    \draw[line] (bpc.south) -- (sum_mech.north);
+
+    \node[anchor=west] at (-0.9,1.95) {Механическая часть};
+    \draw[dashed] (-1.6,-1.0) rectangle (9.6,2.3);
+
+    % =========================
+    % Двигатель
+    % =========================
+
+    \node[sum] (sum_motor) at (0,-3.8) {};
+    \node[block, right=1.4cm of sum_motor] (motor)
+        {$\dfrac{1}{\tau p+1}$};
+
+    \node[smallblock, left=1.4cm of sum_motor] (rpr)
+        {$r_{\text{пр}}$};
+
+    \node[left=1.0cm of rpr] (u_in) {$U$};
+
+    \draw[line] (u_in) -- (rpr.west);
+    \draw[line] (rpr.east) -- (sum_motor.west);
+    \draw[line] (sum_motor.east) -- (motor.west);
+
+    \draw[line]
+        (motor.east)
+        -- ++(1.0,0)
+        |- node[pos=0.25, right] {$M_{\text{дпр}}$}
+        (mdpr_in.south);
+
+    % отрицательная связь двигателя от Phi_rpr
+    \node[smallblock, above=1.25cm of sum_motor] (spr)
+        {$s_{\text{пр}}p$};
+
+    \draw[bus]
+        ($(jd.east)+(0.25,0)$)
+        |- (spr.east);
+
+    \draw[line] (spr.south) -- (sum_motor.north);
+
+    \node[anchor=west] at (-3.6,-2.3) {Двигатель};
+    \draw[dashed] (-3.9,-5.0) rectangle (4.7,-2.0);
+
+    % =========================
+    % Система обратной связи
+    % =========================
+
+    \node[sum] (sum_ctrl) at (7.2,-3.8) {};
+
+    \node[smallblock, above=1.25cm of sum_ctrl] (kp)
+        {$kk_{\text{п}}$};
+
+    \node[block, right=1.5cm of sum_ctrl] (ki_m)
+        {$\dfrac{kk_{\text{и}}}{p}$};
+
+    \node[block, left=1.5cm of sum_ctrl] (ki_ref)
+        {$\dfrac{kk_{\text{и}}}{p}$};
+
+    \node[left=1.0cm of ki_ref] (ref) {$\Phi^*$};
+
+    \draw[line] (ref) -- (ki_ref.west);
+    \draw[line] (ki_ref.east) -- (sum_ctrl.west);
+
+    \draw[bus]
+        ($(jd.east)+(0.25,0)$)
+        |- (kp.west);
+    \draw[line] (kp.south) -- (sum_ctrl.north);
+
+    \draw[bus]
+        (phi_m_out)
+        |- (ki_m.east);
+    \draw[line] (ki_m.west) -- (sum_ctrl.east);
+
+    \draw[line]
+        (sum_ctrl.south)
+        -- ++(0,-0.85)
+        -| node[pos=0.25, below] {$U$}
+        (u_in.south);
+
+    \node[anchor=west] at (4.4,-2.3) {Система обратной связи};
+    \draw[dashed] (3.9,-5.35) rectangle (11.4,-2.0);
+
+\end{tikzpicture}
