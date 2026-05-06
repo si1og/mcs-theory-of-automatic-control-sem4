@@ -116,7 +116,42 @@
     \end{bmatrix}.
 \end{equation}
 
-Найдем определитель матрицы $A(p)$~--- результат вычислений в Wolfram Mathematica приведён на рисунке~\ref{fig:determinant_wolfram}:
+Найдем определитель матрицы $A(p)$~--- результат вычислений в Wolfram Mathematica приведён на рисунке~\ref{fig:determinant_wolfram}, код программы~--- на листинге~\ref{lst:determinant}.
+
+\begin{listing}[H]
+\caption{Нахождение определителя матрицы $A(p)$}
+\vspace{-10pt}
+\label{lst:determinant}
+\begin{minted}[linenos, numbersep=10pt]{mathematica}
+Clear[p, kp, ki];
+
+Jd = 2*10^-3;
+Jm = 1;
+b = 4;
+c = 10^3;
+i = 50;
+tau = 3*10^-3;
+s = 0.05;
+r = 0.7;
+k = 100;
+
+Jdpr = Jd*i^2;
+spr = s*i^2;
+rpr = r*i;
+
+A = {{Jdpr*p^2 + b*p + c, -(b*p + c), -1, 0}, {-(b*p + c),
+    Jm*p^2 + b*p + c, 0, 0}, {spr*p, 0, tau*p + 1, -rpr}, {k*kp*p,
+    k*ki, 0, p}};
+
+detA = Expand[Det[A]];
+
+coeffs = CoefficientList[detA, p];
+
+coeffsDescending = Reverse[coeffs];
+
+detA == 0
+\end{minted}
+\end{listing}
 
 \screenshot[0.95]{determinant_wolfram}{
 Результат вычисления характеристического полинома в системе Wolfram Mathematica
