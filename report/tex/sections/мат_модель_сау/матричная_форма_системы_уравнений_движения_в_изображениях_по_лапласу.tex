@@ -1,0 +1,140 @@
+\subsection{Матричная форма системы уравнений движения в изображениях по Лапласу}
+
+Применим оператор Лапласа к системе уравнений движения при нулевых начальных условиях:
+\begin{equation}
+\begin{cases}
+    \left(
+        J_{\text{дпр}}p^2
+        +
+        bp
+        +
+        c
+    \right)
+    \Phi_{\text{рпр}}
+    -
+    \left(
+        bp+c
+    \right)
+    \Phi_{\text{м}}
+    -
+    M_{\text{дпр}}
+    =
+    0,
+    \\[0.4em]
+
+    \left(
+        J_{\text{м}}p^2
+        +
+        bp
+        +
+        c
+    \right)
+    \Phi_{\text{м}}
+    -
+    \left(
+        bp+c
+    \right)
+    \Phi_{\text{рпр}}
+    =
+    0,
+    \\[0.4em]
+
+    \left(
+        \tau p+1
+    \right)
+    M_{\text{дпр}}
+    +
+    s_{\text{пр}}p
+    \Phi_{\text{рпр}}
+    -
+    r_{\text{пр}}U
+    =
+    0,
+    \\[0.4em]
+
+    pU
+    +
+    kk_{\text{п}}p
+    \Phi_{\text{рпр}}
+    +
+    kk_{\text{и}}
+    \Phi_{\text{м}}
+    =
+    kk_{\text{и}}
+    \Phi^*.
+\end{cases}
+\end{equation}
+
+Представим систему в матричной форме:
+\[
+    A \cdot X = h \Phi^*.
+\]
+
+Тогда матрица системы имеет вид
+\begin{equation}
+    A=
+    \begin{bmatrix}
+        J_{\text{дпр}}p^2+bp+c
+        &
+        -(bp+c)
+        &
+        -1
+        &
+        0
+        \\[0.4em]
+
+        -(bp+c)
+        &
+        J_{\text{м}}p^2+bp+c
+        &
+        0
+        &
+        0
+        \\[0.4em]
+
+        s_{\text{пр}}p
+        &
+        0
+        &
+        \tau p+1
+        &
+        -r_{\text{пр}}
+        \\[0.4em]
+
+        kk_{\text{п}}p
+        &
+        kk_{\text{и}}
+        &
+        0
+        &
+        p
+    \end{bmatrix}.
+\end{equation}
+
+Вектор неизвестных:
+\[
+    X=
+    \begin{bmatrix}
+        \Phi_{\text{рпр}}
+        \\
+        \Phi_{\text{м}}
+        \\
+        M_{\text{дпр}}
+        \\
+        U
+    \end{bmatrix}.
+\]
+
+Вектор внешнего воздействия:
+\[
+    h=
+    \begin{bmatrix}
+        0
+        \\
+        0
+        \\
+        0
+        \\
+        kk_{\text{и}}
+    \end{bmatrix}.
+\]
