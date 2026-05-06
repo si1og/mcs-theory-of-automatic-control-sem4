@@ -81,6 +81,18 @@ Delta6 = Det[H[[1 ;; 6, 1 ;; 6]]];
 \end{minted}
 \end{listing}
 
+Главные угловые миноры матрицы Гурвица представляют собой
+громоздкие полиномиальные выражения относительно параметров
+$k_{\text{п}}$ и $k_{\text{и}}$, поэтому их явный вид не приводится.
+
+На основании условий
+\[
+\Delta_i > 0,
+\qquad i = 1,\dots,6,
+\]
+была построена область устойчивости системы управления в
+пространстве параметров $(k_{\text{п}}, k_{\text{и}})$.
+
 Для построения области устойчивости в пространстве параметров $(k_{\text{п}}, k_{\text{и}})$ использовалась функция Хевисайда:
 \begin{equation}
     D(k_{\text{п}}, k_{\text{и}})
@@ -94,14 +106,16 @@ Delta6 = Det[H[[1 ;; 6, 1 ;; 6]]];
 \end{equation}
 где $\theta(x)$ --- функция Хевисайда.
 
-В Wolfram Mathematica область устойчивости строилась следующим образом:
+Функция $D(k_{\text{п}},k_{\text{и}})$ принимает значение, равное единице, если все главные угловые миноры матрицы Гурвица положительны, и ноль в противном случае.
+
+В Wolfram Mathematica область устойчивости строилась следующим образом (листинг~\ref{lst:stability_region}):
 
 \begin{listing}[H]
 \caption{Построение области устойчивости}
 \vspace{-10pt}
 \label{lst:stability_region}
 \begin{minted}[linenos, numbersep=10pt]{mathematica}
-D[kp_, ki_] :=
+stab[kp_, ki_] :=
  UnitStep[Delta1] *
  UnitStep[Delta2] *
  UnitStep[Delta3] *
@@ -109,35 +123,36 @@ D[kp_, ki_] :=
  UnitStep[Delta5] *
  UnitStep[Delta6];
 
-RegionPlot[
- D[kp, ki] == 1,
- {kp, -5, 45},
- {ki, -5, 45},
- AxesLabel -> {"kp", "ki"}
-]
+ RegionPlot[stab[kp, ki] == 1, {kp, -1, 15}, {ki, -1, 45},
+  AxesLabel -> {"kп", "kи"}, FrameLabel -> {"kп", "kи"},
+  PlotPoints -> 100, MaxRecursion -> 4, ImageSize -> Large,
+  LabelStyle -> Directive[Black, 22], BaseStyle -> {FontSize -> 18}]
 \end{minted}
 \end{listing}
 
-Область устойчивости системы представлена на рисунке~\ref{fig:stability_region}.
+Область устойчивости системы представлена на рисунке~\ref{fig:pdf/stability_region}.
 
-\screenshot[0.55]{stability_region}{Область устойчивости системы}
+\screenshot[0.55]{pdf/stability_region}{Область устойчивости системы}
 
-Выберем точку, принадлежащую области устойчивости:
+Для проверки выберем точку из найденной области устойчивости:
 \begin{equation}
     k_{\text{п}} = 10,
     \qquad
     k_{\text{и}} = 15.
 \end{equation}
 
-Для выбранных параметров вычислим корни характеристического полинома:
+в Wolfram Mathematica были вычислены корни характеристического полинома (рис.~\ref{fig:pdf/roots_wolfram}).
 
-\begin{listing}[H]
-\caption{Вычисление корней характеристического полинома}
-\vspace{-10pt}
-\label{lst:roots}
-\begin{minted}[linenos, numbersep=10pt]{mathematica}
-NSolve[detA /. {kp -> 10, ki -> 15} == 0, p]
-\end{minted}
-\end{listing}
+\screenshot[0.95]{roots_wolfram}{Вычисление корней характеристического полинома в Wolfram Mathematica}
 
-Полученные корни располагаются в левой полуплоскости комплексной плоскости, следовательно, исследуемая система является устойчивой.
+Для выбранных значений параметров корни характеристического полинома имеют вид:
+\begin{equation}
+\begin{aligned}
+    p_1 &= -329.53, \\
+    p_{2,3} &= -2.54315 \pm 85.4706i, \\
+    p_4 &= -1.50409, \\
+    p_{5,6} &= -1.00628 \pm 31.0608i.
+\end{aligned}
+\end{equation}
+
+Так как действительные части всех корней отрицательны, выбранная точка принадлежит области устойчивости.
