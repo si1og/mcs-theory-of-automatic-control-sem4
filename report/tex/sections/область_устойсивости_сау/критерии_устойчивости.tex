@@ -54,33 +54,6 @@ a_6 & a_4 & a_2 & a_0 & 0   & 0 \\
 
 Для вычисления матрицы Гурвица и её главных угловых миноров использовалась система Wolfram Mathematica.
 
-Исходный код представлен в листинге~\ref{lst:hurwitz}.
-
-\begin{listing}[H]
-\caption{Формирование матрицы Гурвица и вычисление миноров}
-\vspace{-10pt}
-\label{lst:hurwitz}
-\begin{minted}[linenos, numbersep=10pt]{mathematica}
-a = coeffsDescending;
-
-H = {
- {a[[2]], a[[4]], a[[6]], 0, 0, 0},
- {a[[1]], a[[3]], a[[5]], a[[7]], 0, 0},
- {0, a[[2]], a[[4]], a[[6]], 0, 0},
- {0, a[[1]], a[[3]], a[[5]], a[[7]], 0},
- {0, 0, a[[2]], a[[4]], a[[6]], 0},
- {0, 0, a[[1]], a[[3]], a[[5]], a[[7]]}
-};
-
-Delta1 = Det[H[[1 ;; 1, 1 ;; 1]]];
-Delta2 = Det[H[[1 ;; 2, 1 ;; 2]]];
-Delta3 = Det[H[[1 ;; 3, 1 ;; 3]]];
-Delta4 = Det[H[[1 ;; 4, 1 ;; 4]]];
-Delta5 = Det[H[[1 ;; 5, 1 ;; 5]]];
-Delta6 = Det[H[[1 ;; 6, 1 ;; 6]]];
-\end{minted}
-\end{listing}
-
 Главные угловые миноры матрицы Гурвица представляют собой
 громоздкие полиномиальные выражения относительно параметров
 $k_{\text{п}}$ и $k_{\text{и}}$, поэтому их явный вид не приводится.
@@ -108,31 +81,9 @@ $k_{\text{п}}$ и $k_{\text{и}}$, поэтому их явный вид не �
 
 Функция $D(k_{\text{п}},k_{\text{и}})$ принимает значение, равное единице, если все главные угловые миноры матрицы Гурвица положительны, и ноль в противном случае.
 
-В Wolfram Mathematica область устойчивости строилась следующим образом (листинг~\ref{lst:stability_region}):
-
-\begin{listing}[H]
-\caption{Построение области устойчивости}
-\vspace{-10pt}
-\label{lst:stability_region}
-\begin{minted}[linenos, numbersep=10pt]{mathematica}
-stab[kp_, ki_] :=
- UnitStep[Delta1] *
- UnitStep[Delta2] *
- UnitStep[Delta3] *
- UnitStep[Delta4] *
- UnitStep[Delta5] *
- UnitStep[Delta6];
-
- RegionPlot[stab[kp, ki] == 1, {kp, -1, 15}, {ki, -1, 45},
-  AxesLabel -> {"kп", "kи"}, FrameLabel -> {"kп", "kи"},
-  PlotPoints -> 100, MaxRecursion -> 4, ImageSize -> Large,
-  LabelStyle -> Directive[Black, 22], BaseStyle -> {FontSize -> 18}]
-\end{minted}
-\end{listing}
-
 Область устойчивости системы представлена на рисунке~\ref{fig:pdf/stability_region}.
 
-\screenshot[0.55]{pdf/stability_region}{Область устойчивости системы}
+\screenshot[0.65]{pdf/stability_region}{Область устойчивости системы}
 
 Для проверки выберем точку из найденной области устойчивости:
 \begin{equation}
@@ -141,7 +92,7 @@ stab[kp_, ki_] :=
     k_{\text{и}} = 15.
 \end{equation}
 
-в Wolfram Mathematica были вычислены корни характеристического полинома (рис.~\ref{fig:pdf/roots_wolfram}).
+В Wolfram Mathematica были вычислены корни характеристического полинома (рис.~\ref{fig:roots_wolfram}).
 
 \screenshot[0.95]{roots_wolfram}{Вычисление корней характеристического полинома в Wolfram Mathematica}
 
